@@ -18,7 +18,8 @@ import { useState } from "react";
 import { Logo } from "./Logo";
 import { useAuth } from "@/hooks/useAuth";
 
-const items = [
+type NavItem = { to: string; label: string; icon: typeof LayoutDashboard; exact?: boolean };
+const items: NavItem[] = [
   { to: "/app", label: "Dashboard", icon: LayoutDashboard, exact: true },
   { to: "/app/campaigns", label: "Campaigns", icon: Megaphone },
   { to: "/app/adsets", label: "Ad Sets", icon: Layers },
@@ -28,7 +29,7 @@ const items = [
   { to: "/app/notifications", label: "Notifications", icon: Bell },
   { to: "/app/profile", label: "Profile", icon: User },
   { to: "/app/settings", label: "Settings", icon: Settings },
-] as const;
+];
 
 export function Sidebar() {
   const pathname = useRouterState({ select: (s) => s.location.pathname });
