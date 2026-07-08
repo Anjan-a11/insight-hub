@@ -5,8 +5,7 @@ import { Loader } from "@/components/Loader";
 import { useAuth } from "@/hooks/useAuth";
 import {
   LayoutDashboard, Megaphone, Layers, Image as ImageIcon, Users,
-  BarChart3, Bell, User, Settings, LogOut, Search, HelpCircle,
-  ChevronDown, RefreshCw, Trash2, MoreHorizontal, Menu, X, CreditCard,
+  BarChart3, Bell, User, Settings, LogOut, Menu, X, CreditCard,
 } from "lucide-react";
 
 export const Route = createFileRoute("/app")({
@@ -26,17 +25,6 @@ const navItems: NavItem[] = [
   { to: "/app/profile",       label: "Profile",       icon: User },
   { to: "/app/settings",      label: "Settings",      icon: Settings },
 ];
-
-/* ── Liquid button helper ─────────────────────────────────────────────────── */
-function useLiquid() {
-  function onMouseMove(e: React.MouseEvent<HTMLButtonElement | HTMLAnchorElement>) {
-    const el = e.currentTarget as HTMLElement;
-    const r = el.getBoundingClientRect();
-    el.style.setProperty("--x", `${((e.clientX - r.left) / r.width) * 100}%`);
-    el.style.setProperty("--y", `${((e.clientY - r.top) / r.height) * 100}%`);
-  }
-  return { onMouseMove };
-}
 
 /* ── Icon Sidebar ─────────────────────────────────────────────────────────── */
 function IconSidebar() {
@@ -170,37 +158,12 @@ function IconSidebar() {
 /* ── Top Bar ──────────────────────────────────────────────────────────────── */
 function TopBar() {
   const { session } = useAuth();
-  const pathname = useRouterState({ select: (s) => s.location.pathname });
-  const { onMouseMove } = useLiquid();
-  const [spinning, setSpinning] = useState(false);
-
-  const pageTitle = navItems.find((n) =>
-    n.exact ? pathname === n.to : pathname === n.to || pathname.startsWith(n.to + "/")
-  )?.label ?? "Ads Manager";
 
   return (
     <div className="fb-topbar">
-      {/* Logo in top bar */}
       <Link to="/app" className="hidden lg:block shrink-0 mr-2">
         <img src="/logo1.png" alt="mybookEarn" className="h-35 w-50 object-contain" />
       </Link>
-      <div className="flex items-center gap-3 min-w-0">
-        <button className="hidden md:flex items-center gap-1.5 border border-[#dddfe2] rounded-lg px-2.5 py-1.5 text-xs text-gray-500 hover:bg-[#f0f2f5] transition-all">
-          <span className="font-mono">205089202898...</span>
-          <ChevronDown className="h-3 w-3" />
-        </button>
-      </div>
-
-      {/* Search */}
-      <div className="flex-1 max-w-xs mx-4 hidden md:block">
-        <div className="relative group">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400 group-focus-within:text-[#00008B] transition-colors" />
-          <input
-            placeholder="Search campaigns, ad sets, ads"
-            className="w-full bg-[#f0f2f5] rounded-full pl-9 pr-4 py-1.5 text-sm text-gray-700 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#00008B]/30 focus:bg-white transition-all"
-          />
-        </div>
-      </div>
 
       <div className="flex items-center gap-1.5 ml-auto">
         <motion.button
