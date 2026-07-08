@@ -2,20 +2,15 @@ import { motion } from "framer-motion";
 import type { ReactNode } from "react";
 
 export function ClayCard({
-  children,
-  className = "",
-  delay = 0,
-}: {
-  children: ReactNode;
-  className?: string;
-  delay?: number;
-}) {
+  children, className = "", delay = 0,
+}: { children: ReactNode; className?: string; delay?: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.4, delay, ease: [0.22, 1, 0.36, 1] }}
-      className={`clay p-5 ${className}`}
+      transition={{ duration: 0.38, delay, ease: [0.22, 1, 0.36, 1] }}
+      whileHover={{ y: -2, boxShadow: "0 8px 24px rgba(24,119,242,0.10)" }}
+      className={`bg-white rounded-2xl border border-[#dddfe2] p-5 ${className}`}
     >
       {children}
     </motion.div>
@@ -24,10 +19,10 @@ export function ClayCard({
 
 export function StatusPill({ status }: { status: string }) {
   const map: Record<string, string> = {
-    Active: "bg-[oklch(0.94_0.08_155)] text-[oklch(0.35_0.14_155)]",
-    Paused: "bg-[oklch(0.94_0.06_75)] text-[oklch(0.4_0.15_75)]",
-    Draft: "bg-muted text-muted-foreground",
-    Completed: "bg-accent text-primary",
+    Active:    "bg-green-50 text-[#42b72a]",
+    Paused:    "bg-yellow-50 text-yellow-600",
+    Draft:     "bg-gray-100 text-gray-500",
+    Completed: "bg-blue-50 text-[#00008B]",
   };
   return (
     <span className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium ${map[status] || map.Draft}`}>
@@ -62,46 +57,32 @@ export function PageHeader({
 }
 
 export function PrimaryButton({
-  children,
-  onClick,
-  type = "button",
-  className = "",
-  disabled,
-}: {
-  children: ReactNode;
-  onClick?: () => void;
-  type?: "button" | "submit";
-  className?: string;
-  disabled?: boolean;
-}) {
+  children, onClick, type = "button", className = "", disabled,
+}: { children: ReactNode; onClick?: () => void; type?: "button"|"submit"; className?: string; disabled?: boolean }) {
   return (
-    <button
+    <motion.button
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.97 }}
       type={type}
       onClick={onClick}
       disabled={disabled}
-      className={`clay-primary px-5 py-2.5 text-sm font-semibold hover:brightness-110 active:scale-[0.98] transition disabled:opacity-60 disabled:cursor-not-allowed ${className}`}
+      className={`btn-liquid bg-gradient-to-r from-[#00008B] to-[#2929a3] text-white px-5 py-2.5 text-sm font-semibold rounded-xl shadow-md shadow-indigo-200 hover:shadow-indigo-300 transition disabled:opacity-60 disabled:cursor-not-allowed ${className}`}
     >
       {children}
-    </button>
+    </motion.button>
   );
 }
 
-export function GhostButton({
-  children,
-  onClick,
-  className = "",
-}: {
-  children: ReactNode;
-  onClick?: () => void;
-  className?: string;
-}) {
+export function GhostButton({ children, onClick, className = "" }: { children: ReactNode; onClick?: () => void; className?: string }) {
   return (
-    <button
+    <motion.button
+      whileHover={{ scale: 1.02 }}
+      whileTap={{ scale: 0.97 }}
       onClick={onClick}
-      className={`clay-sm px-4 py-2 text-sm font-semibold text-primary hover:brightness-105 active:scale-[0.98] transition ${className}`}
+      className={`border border-[#dddfe2] bg-white hover:bg-[#f0f2f5] text-gray-700 px-4 py-2 text-sm font-semibold rounded-xl transition ${className}`}
     >
       {children}
-    </button>
+    </motion.button>
   );
 }
 
@@ -126,7 +107,7 @@ export function Input(props: React.InputHTMLAttributes<HTMLInputElement>) {
   return (
     <input
       {...props}
-      className={`w-full clay-inset px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 focus:outline-none focus:ring-2 focus:ring-primary/40 ${props.className || ""}`}
+      className={`w-full bg-[#f0f2f5] border border-transparent focus:border-[#00008B] focus:bg-white rounded-xl px-4 py-2.5 text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#00008B]/20 transition-all ${props.className || ""}`}
     />
   );
 }

@@ -1,0 +1,305 @@
+/* ===================================================
+   MybookEarn Sign-In Full-Screen Background
+   1920×1080 — center reserved for glass form
+   =================================================== */
+
+.signin-bg {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+  pointer-events: none;
+  user-select: none;
+}
+
+.signin-bg__gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #00008b 0%, #1a1aaa 40%, #0000cc 70%, #00008b 100%);
+}
+
+.signin-bg__geo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.9;
+}
+
+/* Glow blobs */
+.signin-bg__blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  pointer-events: none;
+}
+
+.signin-bg__blob--1 {
+  width: 420px;
+  height: 420px;
+  left: -100px;
+  top: -80px;
+  background: rgba(255, 255, 255, 0.32);
+}
+
+.signin-bg__blob--2 {
+  width: 520px;
+  height: 520px;
+  right: -140px;
+  bottom: -120px;
+  background: rgba(56, 189, 248, 0.38);
+}
+
+.signin-bg__blob--3 {
+  width: 360px;
+  height: 360px;
+  left: 35%;
+  bottom: -80px;
+  background: rgba(96, 165, 250, 0.25);
+}
+
+/* Center safe zone — no visual clutter */
+.signin-bg__center-safe {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(520px, 42vw);
+  height: min(650px, 72vh);
+  transform: translate(-50%, -50%);
+}
+
+/* Particles */
+.signin-bg__particles span {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.55);
+  animation: signin-drift linear infinite;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+}
+
+@keyframes signin-drift {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.7;
+  }
+  90% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(-120px) translateX(20px);
+    opacity: 0;
+  }
+}
+
+/* Scene placement — edges only */
+.signin-bg__scene {
+  position: absolute;
+}
+
+.signin-bg__scene--left-top {
+  left: 4%;
+  top: 6%;
+}
+
+.signin-bg__scene--left-bottom {
+  left: 6%;
+  bottom: 8%;
+}
+
+.signin-bg__scene--right-top {
+  right: 5%;
+  top: 18%;
+}
+
+.signin-bg__scene--right-bottom {
+  right: 6%;
+  bottom: 10%;
+}
+
+.signin-bg__character {
+  display: block;
+  filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.18));
+}
+
+/* Digital board */
+.signin-bg__digital-board {
+  width: min(340px, 28vw);
+  margin-bottom: 12px;
+  border-radius: 24px;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.22);
+  padding: 4px;
+}
+
+.signin-bg__board-screen {
+  border-radius: 20px;
+  background: rgba(30, 58, 138, 0.38);
+  padding: 28px 24px 24px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.signin-bg__board-title {
+  color: #fff;
+  font-size: clamp(1.5rem, 2.4vw, 2.1rem);
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  margin: 0 0 8px;
+  white-space: nowrap;
+}
+
+.signin-bg__board-screen span {
+  color: #e0f2fe;
+  font-size: clamp(0.75rem, 1.2vw, 1rem);
+  letter-spacing: 0.06em;
+}
+
+.signin-bg__board-stroke {
+  height: 3px;
+  margin: 18px auto 0;
+  width: 80px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #38bdf8, #fff);
+  transform-origin: left center;
+}
+
+/* Glass analytics cards */
+.signin-bg__card {
+  position: absolute;
+  width: min(190px, 16vw);
+  padding: 16px 18px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(22px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.16);
+}
+
+.signin-bg__card h4 {
+  color: #fff;
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  font-weight: 700;
+  margin: 0 0 4px;
+  line-height: 1.1;
+}
+
+.signin-bg__card p {
+  color: #eaf6ff;
+  font-size: clamp(0.7rem, 1vw, 0.875rem);
+  margin: 0;
+}
+
+/* Icon badges */
+.signin-bg__icon-badge {
+  position: absolute;
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.14);
+}
+
+/* Floating coins */
+.signin-bg__coin {
+  position: absolute;
+  bottom: -40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  color: #fff;
+  background: linear-gradient(145deg, #fbbf24, #f59e0b);
+  border: 2px solid #d97706;
+  box-shadow: 0 0 16px rgba(251, 191, 36, 0.45);
+}
+
+/* Growth arrows */
+.signin-bg__growth-arrow {
+  position: absolute;
+  color: rgba(255, 255, 255, 0.9);
+  filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.35));
+}
+
+/* Label pills */
+.signin-bg__label-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+.signin-bg__label-pill--right {
+  margin-left: 8px;
+}
+
+/* Footer tag */
+.signin-bg__footer-tag {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.8rem;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(14px);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  white-space: nowrap;
+}
+
+.signin-bg__footer-tag strong {
+  color: #fff;
+  font-weight: 700;
+}
+
+/* Responsive — tuck elements on smaller screens */
+@media (max-width: 1024px) {
+  .signin-bg__digital-board {
+    width: 240px;
+  }
+
+  .signin-bg__card {
+    width: 140px;
+    padding: 12px 14px;
+  }
+
+  .signin-bg__footer-tag {
+    display: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .signin-bg__scene--left-top,
+  .signin-bg__scene--right-top {
+    opacity: 0.55;
+    transform: scale(0.85);
+  }
+
+  .signin-bg__card:nth-child(n + 3) {
+    display: none;
+  }
+}

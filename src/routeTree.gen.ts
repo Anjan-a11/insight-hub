@@ -19,6 +19,7 @@ import { Route as AppSettingsRouteImport } from './routes/app.settings'
 import { Route as AppProfileRouteImport } from './routes/app.profile'
 import { Route as AppNotificationsRouteImport } from './routes/app.notifications'
 import { Route as AppCampaignsRouteImport } from './routes/app.campaigns'
+import { Route as AppBillingRouteImport } from './routes/app.billing'
 import { Route as AppAudiencesRouteImport } from './routes/app.audiences'
 import { Route as AppAnalyticsRouteImport } from './routes/app.analytics'
 import { Route as AppAdsetsRouteImport } from './routes/app.adsets'
@@ -74,6 +75,11 @@ const AppCampaignsRoute = AppCampaignsRouteImport.update({
   path: '/campaigns',
   getParentRoute: () => AppRoute,
 } as any)
+const AppBillingRoute = AppBillingRouteImport.update({
+  id: '/billing',
+  path: '/billing',
+  getParentRoute: () => AppRoute,
+} as any)
 const AppAudiencesRoute = AppAudiencesRouteImport.update({
   id: '/audiences',
   path: '/audiences',
@@ -105,6 +111,7 @@ export interface FileRoutesByFullPath {
   '/app/adsets': typeof AppAdsetsRoute
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/audiences': typeof AppAudiencesRoute
+  '/app/billing': typeof AppBillingRoute
   '/app/campaigns': typeof AppCampaignsRoute
   '/app/notifications': typeof AppNotificationsRoute
   '/app/profile': typeof AppProfileRoute
@@ -120,6 +127,7 @@ export interface FileRoutesByTo {
   '/app/adsets': typeof AppAdsetsRoute
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/audiences': typeof AppAudiencesRoute
+  '/app/billing': typeof AppBillingRoute
   '/app/campaigns': typeof AppCampaignsRoute
   '/app/notifications': typeof AppNotificationsRoute
   '/app/profile': typeof AppProfileRoute
@@ -137,6 +145,7 @@ export interface FileRoutesById {
   '/app/adsets': typeof AppAdsetsRoute
   '/app/analytics': typeof AppAnalyticsRoute
   '/app/audiences': typeof AppAudiencesRoute
+  '/app/billing': typeof AppBillingRoute
   '/app/campaigns': typeof AppCampaignsRoute
   '/app/notifications': typeof AppNotificationsRoute
   '/app/profile': typeof AppProfileRoute
@@ -155,6 +164,7 @@ export interface FileRouteTypes {
     | '/app/adsets'
     | '/app/analytics'
     | '/app/audiences'
+    | '/app/billing'
     | '/app/campaigns'
     | '/app/notifications'
     | '/app/profile'
@@ -170,6 +180,7 @@ export interface FileRouteTypes {
     | '/app/adsets'
     | '/app/analytics'
     | '/app/audiences'
+    | '/app/billing'
     | '/app/campaigns'
     | '/app/notifications'
     | '/app/profile'
@@ -186,6 +197,7 @@ export interface FileRouteTypes {
     | '/app/adsets'
     | '/app/analytics'
     | '/app/audiences'
+    | '/app/billing'
     | '/app/campaigns'
     | '/app/notifications'
     | '/app/profile'
@@ -273,6 +285,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AppCampaignsRouteImport
       parentRoute: typeof AppRoute
     }
+    '/app/billing': {
+      id: '/app/billing'
+      path: '/billing'
+      fullPath: '/app/billing'
+      preLoaderRoute: typeof AppBillingRouteImport
+      parentRoute: typeof AppRoute
+    }
     '/app/audiences': {
       id: '/app/audiences'
       path: '/audiences'
@@ -309,6 +328,7 @@ interface AppRouteChildren {
   AppAdsetsRoute: typeof AppAdsetsRoute
   AppAnalyticsRoute: typeof AppAnalyticsRoute
   AppAudiencesRoute: typeof AppAudiencesRoute
+  AppBillingRoute: typeof AppBillingRoute
   AppCampaignsRoute: typeof AppCampaignsRoute
   AppNotificationsRoute: typeof AppNotificationsRoute
   AppProfileRoute: typeof AppProfileRoute
@@ -321,6 +341,7 @@ const AppRouteChildren: AppRouteChildren = {
   AppAdsetsRoute: AppAdsetsRoute,
   AppAnalyticsRoute: AppAnalyticsRoute,
   AppAudiencesRoute: AppAudiencesRoute,
+  AppBillingRoute: AppBillingRoute,
   AppCampaignsRoute: AppCampaignsRoute,
   AppNotificationsRoute: AppNotificationsRoute,
   AppProfileRoute: AppProfileRoute,
@@ -340,3 +361,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
